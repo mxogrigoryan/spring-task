@@ -1,0 +1,10 @@
+{{outlet}}
+<ul class="list-group products">
+  {{#each model as |product|}}
+    {{product-name product = product }}
+    <!--<li class="list-group-item">-->
+      <!--{{product.name}} by <em>{{product.quantity}}</em>-->
+      <!--<span class="rating pull-right">{{product.price}}</span>-->
+    <!--</li>-->
+  {{/each}}
+</ul>

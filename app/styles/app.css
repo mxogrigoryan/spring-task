@@ -1,0 +1,35 @@
+h1 {
+  text-align: center;
+}
+
+#add {
+display: none;
+}
+#editForm {
+  display:none;
+}
+.container {
+  background-color: whitesmoke;
+  border: 4px dotted lightgray;
+  border-radius: 12px;
+  margin: 0 auto;
+  width: 90%;
+}
+.list-group {
+  list-style-type: none;
+  margin: 35px;
+  padding: 0;
+}
+.list-group-item {
+  color: gray;
+  display: flex;
+  padding: 16px 0;
+  position: relative;
+  vertical-align: middle;
+
+}
+
+.list-group-item > .shop
+.total-price {
+  display: block;
+}
