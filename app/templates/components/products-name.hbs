@@ -1,0 +1,21 @@
+{{outlet}}
+<li>
+<span class="productName">
+  {{product.name}}
+</span>
+<span class="qty">
+  {{product.qty}}
+</span>
+<span class="price has-sign">
+  {{product.price}}
+</span>
+
+<span class="product-item-actions">
+  <button class="editBtn" {{action 'editProd'}}>
+    <i class="material-icons">mode_edit</i>
+  </button>
+  <button class="deleteBtn" {{action 'delProd'}}>
+    <i class="material-icons">delete</i>
+  </button>
+</span>
+</li>

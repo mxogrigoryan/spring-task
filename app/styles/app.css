@@ -4,14 +4,21 @@ h1 {
 
 #add {
 display: none;
+  margin:1% 0% 1% 5%;
+
 }
+#prodEditor {
+  display: none;
+}
+
 #editForm {
   display:none;
+  margin:1% 0% 1% 5%;
 }
 .container {
   background-color: whitesmoke;
   border: 4px dotted lightgray;
-  border-radius: 12px;
+  border-radius: 15px;
   margin: 0 auto;
   width: 90%;
 }
@@ -20,6 +27,8 @@ display: none;
   margin: 35px;
   padding: 0;
 }
+
+
 .list-group-item {
   color: gray;
   display: flex;
@@ -28,8 +37,37 @@ display: none;
   vertical-align: middle;
 
 }
+.shopName {
+  flex: auto 1 1;
+  font-size: 25px;
+}
+a {
+  color: grey;
+  text-decoration: none;
+}
 
-.list-group-item > .shop
-.total-price {
-  display: block;
+button {
+  background-color: green;
+  border: none;
+  cursor: pointer;
+  color: white;
+  margin: 0 10px;
+  padding: 10px 20px;
+  width: 135px;
+
+}
+.addBtn {
+  width: 300px;
+  margin-left: 5%;
+  height: 50px;
+  margin-top: 20px;
+  background-color: black;
+  font-size: 20px;
+}
+.buttons {
+  display: inline-block;
+  float: right;
+}
+.delsumbit, .cancelBtn {
+  background-color: red;
 }

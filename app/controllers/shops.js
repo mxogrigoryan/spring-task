@@ -8,10 +8,8 @@ export default Ember.Controller.extend({
   actions : {
 
     addShop() {
-      const service = this.get('shopService');
-      let add = document.getElementById('add');
+      const add = document.getElementById('add');
       add.style.display = 'block';
-      service.updateShop();
     },
 
     saveShop() {
@@ -22,29 +20,29 @@ export default Ember.Controller.extend({
       add.style.display = 'none';
     },
     editShop(shop) {
+      this.set('shop', shop);
       const editForm = document.querySelector('#editForm');
       editForm.style.display = 'block';
 
       const input = document.querySelector('#editShop')
       input.value = shop.name;
-
-      console.log(shop)
-
     },
+    changeShopName () {
+      const input = document.querySelector('#editShop');
+      this.set('shop.name',input.value);
+      const editForm = document.querySelector('#editForm');
+      editForm.style.display = 'none';
+      this.get('shopService').updateShop();
+    },
+
+
    cancel() {
      const editForm = document.querySelector('#editForm');
      editForm.style.display = 'none';
      return
 
-   },
-    changeShopName (shop) {
+   }
 
-      const input = document.querySelector('#editShop')
-      shop.set('name', input.value);
-      const editForm = document.querySelector('#editForm');
-      editForm.style.display = 'none';
-
-    }
 
   }
 

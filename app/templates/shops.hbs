@@ -12,11 +12,11 @@
 <form id="editForm">
 <input type="text" class="editor" placeholder="Enter Shop Name" id="editShop" value = changeName>
 <button {{action 'changeShopName'}}>Save</button>
-<button {{action 'cancel'}}>Cancel</button>
+<button class="cancelBtn" {{action 'cancel'}}>Cancel</button>
 </form>
 
 
-  <button {{action 'addShop'}}>Add Shops</button>
+  <button class="addBtn"{{action 'addShop'}}>Add Shops</button>
     <div id="add">
       <label>
         {{input type = 'text' value = shopName}}

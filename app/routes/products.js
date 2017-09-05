@@ -1,3 +1,17 @@
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+  shopService: Ember.inject.service('shops'),
+  model(params) {
+    const model = this.get('shopService').find(params.shop_id);
+    Object.defineProperty(model, 'totalPrice', {
+      get() {
+        return this.products.reduce((res, {qty, price}) => res + qty * price, 0);
+      }
+    });
+    return model;
+  }
+});
 // import Ember from 'ember';
 // import {guidGenerator} from './services/shops';
 // let product = Ember.Object.extend({

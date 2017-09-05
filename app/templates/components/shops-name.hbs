@@ -1,13 +1,11 @@
 {{outlet}}
 <li class="list-group-item">
-  <span class="shopName">{{shop.name}}</span>
+  <span class="shopName">
+{{#link-to "shops.products" shop}}
+  {{shop.name}}
+{{/link-to}}
+</span>
 
 <button class="editsumbit" {{action 'editShop'}}>Edit</button>
 <button class="delsumbit"  {{action 'delShop'}}>Delete</button>
-  <!--<div id = "editShop">-->
-    <!--<form>-->
-      <!--<input id="name" type="text" value="{{shop.name}}">-->
-      <!--<button {{action 'changeShopName'}}>Save</button>-->
-    <!--</form>-->
-  <!--</div>-->
 </li>

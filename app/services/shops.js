@@ -5,7 +5,7 @@ export function guidGenerator() {
   return guid() + guid() + '-' + guid() + '-' + guid() + '-' + guid() + '-' + guid() + guid()  + guid()
 }
 export default Ember.Service.extend({
-  data : [],
+  data : null,
 
   findAll(){
     this.set('data', JSON.parse(window.localStorage.getItem('shops') || '[]'));
