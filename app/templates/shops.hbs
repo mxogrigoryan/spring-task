@@ -14,12 +14,11 @@
 <button {{action 'changeShopName'}}>Save</button>
 <button class="cancelBtn" {{action 'cancel'}}>Cancel</button>
 </form>
-
+<div id="add">
+  <label>
+    {{input type = 'text' value = shopName}}
+    <button {{action 'saveShop'}}>Save</button>
+  </label>
+</div>
 
   <button class="addBtn"{{action 'addShop'}}>Add Shops</button>
-    <div id="add">
-      <label>
-        {{input type = 'text' value = shopName}}
-  <button {{action 'saveShop'}}>Save</button>
-    </label>
-  </div>

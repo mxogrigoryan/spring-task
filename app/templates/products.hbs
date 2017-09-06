@@ -1,19 +1,19 @@
-<h1>asd</h1>
+
 {{outlet}}
 <h1>Products</h1>
 <div class="container prod-cont">
   <ul class="list-group">
     <li class="list-group-item prod-header">
-      <span class="productName">Name</span>
-      <span class="qty">QTY</span>
-      <span class="price">Price</span>
+      <span class="productName"><b>Name</b></span>
+      <span class="qty"><b>QTY</b></span>
+      <span class="price"><b>Price</b></span>
       <hr>
     </li>
     <hr>
 
   {{#each model.products as |product|}}
     {{products-name product=product class="list-group-item"
-                   edit=(action 'editProd') delete=(action 'delShop')}}
+                   edit=(action 'editProd') delete=(action 'delProd')}}
     <hr>
       {{/each}}
 
@@ -21,18 +21,27 @@
     <span class="productName"></span>
     <span class="qty"></span>
     <span class="price">
-        <span class="total-price">total Price</span>
-        <b>${{model.totalPrice}}</b>
+        <span class="total-price">Total Price</span>
+      <br/>
+        <b>${{totalPrice}}</b>
       </span>
   </li>
   </ul>
 
 
 </div>
-<button class="addBtn" onclick={{action 'editor'}}>Add Product</button>
-<form class="editor" onsubmit={{action 'addProduct'}} id='prodEditor'>
-  <input type="text" placeholder="Enter Product Name" id="productName">
-  <input type="number" placeholder="Enter Product QTY" id="productQty">
-  <input type="number" placeholder="Enter Product Price" id="productPrice">
-  <button class="deleteBtn">Submit</button>
+<form class="editor"  id='prodEditor' >
+  {{input type="text"  placeholder="Enter Product Name" id="productName" value = productName}}
+  {{input type="number" placeholder="Enter Product QTY" id="productQty" value = productQty}}
+  {{input type="number" placeholder="Enter Product Price" id="productPrice" value = productPrice}}
+  <button {{action 'saveProd'}} >Save</button>
+
 </form>
+  <form id="prodChange">
+  {{input type="text"  placeholder="Enter Product Name" id="editName" value = editName}}
+  {{input type="number" placeholder="Enter Product QTY" id="editQty" value = editQty}}
+  {{input type="number" placeholder="Enter Product Price" id="editPrice" value = editPrice}}
+  <button  {{action 'changeProd'}} >Change</button>
+  <button class="cancelBtn" {{action 'cancelProd'}} >cancel</button>
+  </form>
+<button class="addBtnProd" {{action 'addProd'}}>Add Product</button>
