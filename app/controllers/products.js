@@ -1,10 +1,8 @@
 import Ember from 'ember';
-import {guidGenerator} from '../services/shops';
 export default Ember.Controller.extend({
-  shopService: Ember.inject.service("shops"),
   product: {},
-  totalPrice: Ember.computed('model.products.@each.price','model.products.@each.qty', function () {
-    return this.get('model').products && this.get('model').products.reduce((res, {qty, price}) => res + qty * price, 0)
+  totalPrice: Ember.computed('model.products.@each.price', 'model.products.@each.qty', function () {
+    return this.get('model.products').reduce((res, p) => res + p.get('price') * p.get('qty'), 0)
   }),
   actions: {
     addProd() {
@@ -14,61 +12,46 @@ export default Ember.Controller.extend({
 
     saveProd() {
       const form = document.querySelector('#prodEditor'),
-        name = document.querySelector('#productName'),
-        qty = document.querySelector('#productQty'),
-        price = document.querySelector('#productPrice'),
-        service = this.get('shopService'),
-        model = this.get('model');
-      if (!model.products) {
-        this.set('model.products', []);
-      }
+        shop = this.get('model');
+      const product = this.get('store').createRecord('product', {
+        name: this.get('name'),
+        price: this.get('price'),
+        qty: this.get('qty'),
+        shop
+      });
+      shop.get('products').pushObject(product);
+      product.save().then(() => {
+        shop.save().then(() => {
+          this.set('name', '');
+          this.set('qty', '');
+          this.set('price', '');
+          form.style.display = 'none';
+        })
+      });
 
-      this.set('product.name', name.value);
-      this.set('product.qty', qty.value);
-      this.set('product.price', price.value);
-
-      const product = this.get('product');
-
-        this.set('product.id', guidGenerator());
-        model.products.pushObject(product);
-
-      name.value = '';
-      qty.value = '';
-      price.value = '';
-      form.style.display = 'none';
-      this.set('product', {});
-      service.updateShop();
     },
 
-
-    editProd(product) {
-      const edit = document.querySelector('#prodChange'),
-        name = document.querySelector('#editName'),
-        qty = document.querySelector('#editQty'),
-        price = document.querySelector('#editPrice');
-
-      edit.style.display = "block";
-      name.value = product.name;
-      qty.value = product.qty;
-      price.value = product.price;
-      this.set('product', product)
-
+    editProd(id) {
+      const edit = document.querySelector('#prodChange');
+      this.get('store').findRecord('product', id).then(product => {
+        edit.style.display = "block";
+        this.set('product.id', product.get('id'));
+        this.set('product.name', product.get('name'));
+        this.set('product.price', product.get('price'));
+        this.set('product.qty', product.get('qty'));
+      })
     },
     changeProd() {
-      const change = document.querySelector('#prodChange'),
-        name = document.querySelector('#editName'),
-        qty = document.querySelector('#editQty'),
-        price = document.querySelector('#editPrice');
-
-      this.set('product.name', name.value);
-      this.set('product.qty', qty.value);
-      this.set('product.price', price.value);
-      change.style.display = "none";
-      this.get('shopService').updateShop();
-      name.value = '';
-      qty.value = '';
-      price.value = '';
-
+      const change = document.querySelector('#prodChange');
+      this.get('store').findRecord('product', this.get('product.id')).then(product => {
+        product.setProperties({
+          name: this.get('product.name'),
+          qty: this.get('product.qty'),
+          price: this.get('product.price')
+        });
+        this.set('product', {});
+        change.style.display = "none";
+      });
     },
     cancelProd() {
       const change = document.querySelector('#prodChange');
@@ -77,9 +60,7 @@ export default Ember.Controller.extend({
     },
 
     delProd(product) {
-      const products = this.get('model.products');
-      products.removeObject(product);
-      this.get('shopService').updateShop();
+      product.destroyRecord();
     },
 
   }

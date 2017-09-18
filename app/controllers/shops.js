@@ -1,11 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  shopService: Ember.inject.service('shops'),
-  addShop : false,
-  saveShop : false,
+  addShop: false,
+  saveShop: false,
   shop: {},
-  actions : {
+  actions: {
 
     addShop() {
       const add = document.getElementById('add');
@@ -13,37 +12,49 @@ export default Ember.Controller.extend({
     },
 
     saveShop() {
-      if(!this.get('shopName'))  return;
-      this.get('shopService').createShop(this.get('shopName'));
-      this.set('shopName','');
-      let add = document.getElementById('add');
-      add.style.display = 'none';
-    },
-    editShop(shop) {
-      this.set('shop', shop);
-      const editForm = document.querySelector('#editForm');
-      editForm.style.display = 'block';
+      if (!this.get('shopName'))  return;
+      const shop = this.get('store').createRecord('shop', {
+        name: this.get('shopName')
+      });
+      shop.save().then(() => {
+        this.set('shopName', '');
+        let add = document.getElementById('add');
+        add.style.display = 'none';
+      })
 
-      const input = document.querySelector('#editShop')
-      input.value = shop.name;
+    },
+    editShop(shopId) {
+      this.get('store').findRecord('shop', shopId).then(shop => {
+        this.set('shop', shop);
+        const editForm = document.querySelector('#editForm');
+        editForm.style.display = 'block';
+        const input = document.querySelector('#editShop');
+        input.value = this.get('shop.name');
+      });
+
+
     },
     changeShopName () {
-      const input = document.querySelector('#editShop');
-      this.set('shop.name',input.value);
+      const input = document.querySelector('#editShop'),
+            editForm = document.querySelector('#editForm');
+      this.set('shop.name', input.value);
+      this.get('shop').save().then(() => {
+        editForm.style.display = 'none';
+      })
+    },
+    cancel() {
       const editForm = document.querySelector('#editForm');
       editForm.style.display = 'none';
-      this.get('shopService').updateShop();
+      return
+
     },
+    delShop(shop) {
+      shop.get('products').forEach((product) => {
+        product.destroyRecord();
+      })
+      shop.destroyRecord();
 
-
-   cancel() {
-     const editForm = document.querySelector('#editForm');
-     editForm.style.display = 'none';
-     return
-
-   }
-
-
+    }
   }
 
 });

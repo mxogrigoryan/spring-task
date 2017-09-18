@@ -3,7 +3,7 @@
 <div class="container">
   <ul class="list-group">
      {{#each model as |shops|}}
-         {{shops-name shop = shops edit=(action 'editShop')}}
+         {{shops-name shop = shops edit=(action 'editShop') del = (action 'delShop')}}
        <hr>
      {{/each}}
 

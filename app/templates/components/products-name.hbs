@@ -11,10 +11,10 @@
 </span>
 
 <span class="product-item-actions">
-  <button class="editBtn" {{action 'editProd'}}>
+  <button class="editBtn" {{action 'editProd' product.id}}>
     <i class="material-icons">mode_edit</i>
   </button>
-  <button class="deleteBtn" {{action 'delProd'}}>
+  <button class="deleteBtn" {{action 'delProd' product}}>
     <i class="material-icons">delete</i>
   </button>
 </span>

@@ -4,11 +4,11 @@ export default Ember.Component.extend({
   tagName: 'li',
 
   actions: {
-    editProd() {
-      this.get('edit')(this.get('product'));
+    editProd(id) {
+      this.get('edit')(id);
     },
-    delProd() {
-      this.get('delete')(this.get('product'));
+    delProd(product) {
+      this.get('delete')(product);
     }
 
   }

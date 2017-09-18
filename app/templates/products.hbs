@@ -1,6 +1,5 @@
-
 {{outlet}}
-<h1>Products</h1>
+<h1>{{model.name}}</h1>
 <div class="container prod-cont">
   <ul class="list-group">
     <li class="list-group-item prod-header">
@@ -10,13 +9,11 @@
       <hr>
     </li>
     <hr>
-
   {{#each model.products as |product|}}
     {{products-name product=product class="list-group-item"
                    edit=(action 'editProd') delete=(action 'delProd')}}
     <hr>
       {{/each}}
-
   <li class="list-group-item">
     <span class="productName"></span>
     <span class="qty"></span>
@@ -31,16 +28,16 @@
 
 </div>
 <form class="editor"  id='prodEditor' >
-  {{input type="text"  placeholder="Enter Product Name" id="productName" value = productName}}
-  {{input type="number" placeholder="Enter Product QTY" id="productQty" value = productQty}}
-  {{input type="number" placeholder="Enter Product Price" id="productPrice" value = productPrice}}
+  {{input type="text"  placeholder="Enter Product Name" id="productName" value = name}}
+  {{input type="number" placeholder="Enter Product QTY" id="productQty" value = qty}}
+  {{input type="number" placeholder="Enter Product Price" id="productPrice" value = price}}
   <button {{action 'saveProd'}} >Save</button>
 
 </form>
   <form id="prodChange">
-  {{input type="text"  placeholder="Enter Product Name" id="editName" value = editName}}
-  {{input type="number" placeholder="Enter Product QTY" id="editQty" value = editQty}}
-  {{input type="number" placeholder="Enter Product Price" id="editPrice" value = editPrice}}
+  {{input type="text"  placeholder="Enter Product Name" id="editName" value =product.name}}
+  {{input type="number" placeholder="Enter Product QTY" id="editQty" value = product.qty}}
+  {{input type="number" placeholder="Enter Product Price" id="editPrice" value = product.price}}
   <button  {{action 'changeProd'}} >Change</button>
   <button class="cancelBtn" {{action 'cancelProd'}} >cancel</button>
   </form>
